@@ -5,17 +5,34 @@ import { Badge } from '@/components/ui/badge';
 import { Camera, Upload, Loader2, Utensils } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
-interface MacroNutrients {
+interface FoodItem {
+  name: string;
+  quantity: string;
+  calories: number;
   protein: number;
   carbs: number;
   fat: number;
+}
+
+interface NutritionTotals {
   calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+}
+
+interface WebhookResponse {
+  output: {
+    status: string;
+    food: FoodItem[];
+    total: NutritionTotals;
+  };
 }
 
 interface AnalysisResult {
-  macros: MacroNutrients;
-  confidence: number;
-  foods: string[];
+  food: FoodItem[];
+  total: NutritionTotals;
+  status: string;
 }
 
 export function ImageAnalyzer() {
@@ -41,27 +58,38 @@ export function ImageAnalyzer() {
     setResult(null);
 
     try {
-      // Simulate API call - replace with actual nutrition analysis API
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Mock response - replace with actual API response
-      const mockResult: AnalysisResult = {
-        macros: {
-          protein: Math.floor(Math.random() * 30) + 20,
-          carbs: Math.floor(Math.random() * 40) + 30,
-          fat: Math.floor(Math.random() * 20) + 10,
-          calories: Math.floor(Math.random() * 200) + 400,
-        },
-        confidence: Math.random() * 0.3 + 0.7,
-        foods: ['Grilled Chicken', 'Brown Rice', 'Broccoli', 'Olive Oil'],
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('https://rifuz.app.n8n.cloud/webhook-test/fcc68027-6eba-46b8-8124-1fc93a3bf4fe', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Analysis failed');
+      }
+
+      const webhookData: WebhookResponse[] = await response.json();
+      const analysisData = webhookData[0]?.output;
+
+      if (!analysisData || analysisData.status !== 'success') {
+        throw new Error('Analysis unsuccessful');
+      }
+
+      const result: AnalysisResult = {
+        food: analysisData.food,
+        total: analysisData.total,
+        status: analysisData.status,
       };
       
-      setResult(mockResult);
+      setResult(result);
       toast({
         title: "Analysis complete!",
         description: "Your meal has been analyzed successfully.",
       });
     } catch (error) {
+      console.error('Analysis error:', error);
       toast({
         title: "Analysis failed",
         description: "Please try again with a clearer image.",
@@ -152,24 +180,33 @@ export function ImageAnalyzer() {
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-semibold">Nutrition Analysis</h3>
                   <Badge variant="secondary" className="bg-gradient-accent">
-                    {Math.round(result.confidence * 100)}% confident
+                    Analysis Complete
                   </Badge>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 p-4 bg-gradient-hero rounded-lg">
-                  <MacroCard label="Protein" value={result.macros.protein} unit="g" color="text-success" />
-                  <MacroCard label="Carbs" value={result.macros.carbs} unit="g" color="text-warning" />
-                  <MacroCard label="Fat" value={result.macros.fat} unit="g" color="text-accent" />
-                  <MacroCard label="Calories" value={result.macros.calories} unit="" color="text-primary" />
+                  <MacroCard label="Protein" value={Math.round(result.total.protein * 10) / 10} unit="g" color="text-success" />
+                  <MacroCard label="Carbs" value={Math.round(result.total.carbs * 10) / 10} unit="g" color="text-warning" />
+                  <MacroCard label="Fat" value={Math.round(result.total.fat * 10) / 10} unit="g" color="text-accent" />
+                  <MacroCard label="Calories" value={result.total.calories} unit="" color="text-primary" />
                 </div>
 
                 <div>
                   <h4 className="font-medium mb-2">Detected Foods:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {result.foods.map((food, index) => (
-                      <Badge key={index} variant="outline">
-                        {food}
-                      </Badge>
+                  <div className="space-y-2">
+                    {result.food.map((item, index) => (
+                      <div key={index} className="flex justify-between items-center p-3 bg-muted/50 rounded-lg">
+                        <div>
+                          <div className="font-medium">{item.name}</div>
+                          <div className="text-sm text-muted-foreground">{item.quantity}</div>
+                        </div>
+                        <div className="text-right">
+                          <div className="font-medium">{item.calories} cal</div>
+                          <div className="text-xs text-muted-foreground">
+                            P: {item.protein}g • C: {item.carbs}g • F: {item.fat}g
+                          </div>
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </div>
