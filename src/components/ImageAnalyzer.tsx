@@ -79,8 +79,11 @@ export function ImageAnalyzer() {
         throw new Error('Analysis failed');
       }
 
-      const webhookData: WebhookEnvelope[] = await response.json();
-      const analysisData = webhookData[0]?.response?.output ?? webhookData[0]?.output;
+      const webhookData = await response.json();
+      
+      // Handle both array and single object responses
+      const envelope = Array.isArray(webhookData) ? webhookData[0] : webhookData;
+      const analysisData = envelope?.response?.output ?? envelope?.output;
 
       if (!analysisData || !analysisData.food || !analysisData.total) {
         throw new Error('Analysis unsuccessful');
