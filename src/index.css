@@ -132,5 +132,34 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    background-image: 
+      radial-gradient(circle at 20% 80%, hsl(142 76% 36% / 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, hsl(27 96% 61% / 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, hsl(120 84% 42% / 0.02) 0%, transparent 50%);
+    background-attachment: fixed;
+    background-size: 600px 600px, 800px 800px, 400px 400px;
+    background-position: 0% 0%, 100% 0%, 50% 100%;
+  }
+}
+
+/* Food-themed decorative elements */
+@layer components {
+  .food-pattern-overlay {
+    position: relative;
+  }
+  
+  .food-pattern-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 25% 25%, hsl(142 76% 36% / 0.08) 2px, transparent 2px),
+      radial-gradient(circle at 75% 75%, hsl(27 96% 61% / 0.06) 1px, transparent 1px);
+    background-size: 120px 120px, 80px 80px;
+    pointer-events: none;
+    opacity: 0.6;
   }
 }
