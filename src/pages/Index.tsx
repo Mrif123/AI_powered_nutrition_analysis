@@ -1,28 +1,52 @@
 import { ImageAnalyzer } from '@/components/ImageAnalyzer';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Zap, Camera, Target, Clock, Shield, ChefHat, Apple, Activity } from 'lucide-react';
+import { Sparkles, Zap, Camera, Target, Clock, Shield, ChefHat, Apple, Activity, Sun, Moon } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import heroMeal from '@/assets/hero-meal.jpg';
 
 const Index = () => {
+  const { theme, setTheme } = useTheme();
   return (
     <div className="min-h-screen bg-background organic-background">
+      {/* Theme Toggle Button */}
+      <div className="fixed top-4 right-4 z-50">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          className="bg-background/80 backdrop-blur-sm border-border/50 hover:bg-background/90"
+        >
+          <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme</span>
+        </Button>
+      </div>
+
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-hero border-b tech-grid-overlay">
-        <div className="container mx-auto px-4 py-12 md:py-16">
+      <section 
+        className="relative overflow-hidden border-b tech-grid-overlay min-h-screen flex items-center"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('/lovable-uploads/082aec33-cb3e-4821-9ac6-641ae997116b.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="container mx-auto px-4 py-12 md:py-16 relative z-10">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div className="text-center lg:text-left space-y-6">
-              <Badge className="inline-flex mb-2 bg-gradient-accent text-accent-foreground border-0" variant="secondary">
+              <Badge className="inline-flex mb-2 bg-white/20 text-white border-0 backdrop-blur-sm" variant="secondary">
                 <Sparkles className="mr-1 h-3 w-3" />
                 Powered by AI
               </Badge>
-              <h1 className="text-5xl md:text-7xl font-black mb-4 bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent leading-tight">
+              <h1 className="text-5xl md:text-7xl font-black mb-4 text-white leading-tight drop-shadow-lg">
                 Calories AI
               </h1>
-              <p className="text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight">
+              <p className="text-2xl md:text-3xl font-bold text-white/90 mb-4 leading-tight drop-shadow-md">
                 Snap a photo, get instant nutrition analysis
               </p>
-              <p className="text-lg text-muted-foreground mb-6 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+              <p className="text-lg text-white/80 mb-6 max-w-lg mx-auto lg:mx-0 leading-relaxed drop-shadow-sm">
                 Upload any meal photo and our AI analyzes macronutrients in seconds. Track protein, carbs, fat, and calories effortlessly.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
@@ -30,24 +54,24 @@ const Index = () => {
                   <Camera className="mr-2 h-6 w-6" />
                   Analyze Your Meal Now
                 </Button>
-                <Button size="lg" variant="outline" className="border-primary/20 hover:border-primary/40">
+                <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 hover:border-white/50">
                   <Zap className="mr-2 h-5 w-5" />
                   See Demo
                 </Button>
               </div>
               
               {/* Quick Stats */}
-              <div className="flex justify-center lg:justify-start gap-6 pt-4 text-sm text-muted-foreground">
+              <div className="flex justify-center lg:justify-start gap-6 pt-4 text-sm text-white/70">
                 <div className="flex items-center gap-1">
-                  <Clock className="h-4 w-4 text-primary" />
+                  <Clock className="h-4 w-4 text-white" />
                   <span>2 sec analysis</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <Target className="h-4 w-4 text-primary" />
+                  <Target className="h-4 w-4 text-white" />
                   <span>95% accuracy</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <Shield className="h-4 w-4 text-primary" />
+                  <Shield className="h-4 w-4 text-white" />
                   <span>Free to use</span>
                 </div>
               </div>
