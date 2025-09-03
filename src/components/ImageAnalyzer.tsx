@@ -21,8 +21,17 @@ interface NutritionTotals {
   fat: number;
 }
 
-interface WebhookResponse {
-  output: {
+interface WebhookEnvelope {
+  action?: string;
+  response?: {
+    output: {
+      status: string;
+      food: FoodItem[];
+      total: NutritionTotals;
+    };
+  };
+  // Backward compatibility if API returns output at root
+  output?: {
     status: string;
     food: FoodItem[];
     total: NutritionTotals;
@@ -70,10 +79,10 @@ export function ImageAnalyzer() {
         throw new Error('Analysis failed');
       }
 
-      const webhookData: WebhookResponse[] = await response.json();
-      const analysisData = webhookData[0]?.output;
+      const webhookData: WebhookEnvelope[] = await response.json();
+      const analysisData = webhookData[0]?.response?.output ?? webhookData[0]?.output;
 
-      if (!analysisData || analysisData.status !== 'success') {
+      if (!analysisData || !analysisData.food || !analysisData.total) {
         throw new Error('Analysis unsuccessful');
       }
 
