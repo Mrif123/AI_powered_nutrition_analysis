@@ -36,16 +36,27 @@ All colors MUST be HSL.
     --input: 214.3 31.8% 91.4%;
     --ring: 142 76% 36%;
 
-    /* Custom design tokens */
-    --gradient-primary: linear-gradient(135deg, hsl(142 76% 36%) 0%, hsl(120 84% 42%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(27 96% 61%) 0%, hsl(45 93% 58%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(142 76% 36% / 0.1) 0%, hsl(27 96% 61% / 0.1) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(142 76% 36%) 0%, hsl(120 84% 50%) 100%);
-    --gradient-feature: linear-gradient(135deg, hsl(142 76% 36% / 0.05) 0%, hsl(240 10% 3.9% / 0.02) 100%);
+    /* Custom design tokens - Fresh & Healthy Palette */
+    --mint: 164 88% 85%;
+    --mint-foreground: 164 88% 25%;
+    --cream: 45 44% 96%;
+    --sage: 142 45% 75%;
+    --soft-green: 142 76% 90%;
     
-    --shadow-glow: 0 20px 60px hsl(142 76% 36% / 0.2);
-    --shadow-card: 0 8px 40px hsl(240 10% 3.9% / 0.12);
-    --shadow-button: 0 4px 20px hsl(142 76% 36% / 0.3);
+    --gradient-primary: linear-gradient(135deg, hsl(142 76% 36%) 0%, hsl(164 88% 45%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(27 96% 61%) 0%, hsl(45 93% 58%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(164 88% 85% / 0.15) 0%, hsl(45 44% 96% / 0.15) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(142 76% 36%) 0%, hsl(164 88% 45%) 100%);
+    --gradient-feature: linear-gradient(135deg, hsl(164 88% 85% / 0.08) 0%, hsl(45 44% 96% / 0.08) 100%);
+    
+    /* Advanced background gradients */
+    --bg-primary: radial-gradient(ellipse at top left, hsl(164 88% 85% / 0.12) 0%, transparent 50%);
+    --bg-secondary: radial-gradient(ellipse at bottom right, hsl(142 45% 75% / 0.08) 0%, transparent 50%);
+    --bg-accent: radial-gradient(ellipse at center, hsl(45 44% 96% / 0.15) 0%, transparent 60%);
+    
+    --shadow-glow: 0 20px 60px hsl(164 88% 45% / 0.15);
+    --shadow-card: 0 8px 40px hsl(240 10% 3.9% / 0.08);
+    --shadow-button: 0 4px 20px hsl(142 76% 36% / 0.25);
     
     --success: 142 76% 36%;
     --success-foreground: 0 0% 98%;
@@ -132,23 +143,67 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    background-image: 
-      radial-gradient(circle at 20% 80%, hsl(142 76% 36% / 0.03) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, hsl(27 96% 61% / 0.03) 0%, transparent 50%),
-      radial-gradient(circle at 40% 40%, hsl(120 84% 42% / 0.02) 0%, transparent 50%);
+    background: 
+      /* Organic wave patterns */
+      linear-gradient(135deg, transparent 35%, hsl(164 88% 85% / 0.04) 35%, hsl(164 88% 85% / 0.04) 65%, transparent 65%),
+      linear-gradient(45deg, transparent 25%, hsl(142 45% 75% / 0.03) 25%, hsl(142 45% 75% / 0.03) 75%, transparent 75%),
+      /* Soft gradient foundation */
+      var(--bg-primary),
+      var(--bg-secondary), 
+      var(--bg-accent),
+      /* Base gradient */
+      linear-gradient(135deg, hsl(45 44% 96%) 0%, hsl(164 88% 95%) 20%, hsl(142 76% 95%) 40%, hsl(45 44% 98%) 100%);
+    background-size: 
+      800px 400px,
+      600px 300px,
+      1200px 600px,
+      1000px 500px,
+      800px 400px,
+      100% 100%;
+    background-position: 
+      0% 0%,
+      100% 100%,
+      0% 100%,
+      100% 0%,
+      50% 50%,
+      0% 0%;
     background-attachment: fixed;
-    background-size: 600px 600px, 800px 800px, 400px 400px;
-    background-position: 0% 0%, 100% 0%, 50% 100%;
+    background-repeat: no-repeat;
   }
 }
 
-/* Food-themed decorative elements */
+/* Modern organic patterns and food-inspired elements */
 @layer components {
-  .food-pattern-overlay {
+  .organic-background {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .organic-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      /* Subtle fruit/veggie patterns */
+      radial-gradient(ellipse 40px 20px at 20% 30%, hsl(164 88% 85% / 0.05) 30%, transparent 40%),
+      radial-gradient(ellipse 30px 30px at 80% 20%, hsl(142 45% 75% / 0.04) 35%, transparent 45%),
+      radial-gradient(ellipse 25px 15px at 60% 80%, hsl(45 44% 80% / 0.03) 40%, transparent 50%),
+      /* Wave-like patterns */
+      conic-gradient(from 0deg at 50% 0%, hsl(164 88% 90% / 0.02), transparent 25%, hsl(142 76% 90% / 0.02) 50%, transparent 75%);
+    background-size: 400px 300px, 500px 400px, 300px 200px, 800px 600px;
+    background-position: 0% 0%, 100% 0%, 50% 100%, 0% 50%;
+    animation: float 20s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+  
+  .tech-grid-overlay {
     position: relative;
   }
   
-  .food-pattern-overlay::before {
+  .tech-grid-overlay::after {
     content: '';
     position: absolute;
     top: 0;
@@ -156,10 +211,23 @@ All colors MUST be HSL.
     right: 0;
     bottom: 0;
     background-image: 
-      radial-gradient(circle at 25% 25%, hsl(142 76% 36% / 0.08) 2px, transparent 2px),
-      radial-gradient(circle at 75% 75%, hsl(27 96% 61% / 0.06) 1px, transparent 1px);
-    background-size: 120px 120px, 80px 80px;
+      linear-gradient(90deg, hsl(164 88% 85% / 0.02) 1px, transparent 1px),
+      linear-gradient(hsl(164 88% 85% / 0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
     pointer-events: none;
-    opacity: 0.6;
+    opacity: 0.3;
+  }
+}
+
+/* Floating animation for organic elements */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(-5px) rotate(-1deg);
   }
 }

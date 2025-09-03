@@ -6,9 +6,9 @@ import heroMeal from '@/assets/hero-meal.jpg';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background organic-background">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-hero border-b">
+      <section className="relative overflow-hidden bg-gradient-hero border-b tech-grid-overlay">
         <div className="container mx-auto px-4 py-12 md:py-16">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div className="text-center lg:text-left space-y-6">
@@ -87,7 +87,7 @@ const Index = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-12 md:py-16 bg-gradient-feature">
+      <section className="py-12 md:py-16 bg-gradient-feature organic-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-5xl font-black mb-3 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
