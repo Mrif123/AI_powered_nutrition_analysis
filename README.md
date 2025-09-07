@@ -101,10 +101,10 @@ cd AI_powered_nutrition_analysis
 
 ## 🌟 Future Enhancements  
 
-- 📌 Support for multiple food items in a single image.  
-- 📌 Nutrition history tracking & daily summary.  
-- 📌 Integration with fitness/health apps.  
-- 📌 Personalized diet recommendations using AI.  
+-  Support for multiple food items in a single image.  
+-  Nutrition history tracking & daily summary.  
+-  Integration with fitness/health apps.  
+-  Personalized diet recommendations using AI.  
 
 ---
 
