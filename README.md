@@ -73,8 +73,8 @@ This project is an **AI-powered nutrition analyzer** that allows users to upload
 
 ### 1. Clone this repository  
 ```bash
-git clone https://github.com/your-username/nutrition-analysis.git
-cd nutrition-analysis
+git clone https://github.com/Mrif123/AI_powered_nutrition_analysis.git
+cd AI_powered_nutrition_analysis
 ```
 
 ### 2. Setup Lovable  
