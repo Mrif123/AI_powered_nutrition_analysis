@@ -1,73 +1,133 @@
-# Welcome to your Lovable project
+🍽️ AI-Powered Nutrition Analysis
 
-## Project info
+This project is an AI-powered nutrition analyzer that allows users to upload a meal image through a Lovable website. The image is sent to n8n via a webhook, processed by an AI Agent integrated with the OpenAI Chat Model (GPT-4.1-mini), and analyzed for nutritional content such as proteins, carbohydrates, fats, and total calories. The results are then returned to the Lovable site in structured JSON format.
 
-**URL**: https://lovable.dev/projects/7096eb30-9a4d-4e22-8f18-97a931341147
+🚀 Features
 
-## How can I edit this code?
+📸 Upload meal images via Lovable website.
 
-There are several ways of editing your application.
+🔗 Webhook integration between Lovable and n8n for seamless data flow.
 
-**Use Lovable**
+🤖 AI-powered food analysis using OpenAI GPT-4.1-mini.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/7096eb30-9a4d-4e22-8f18-97a931341147) and start prompting.
+📊 Extracts key nutrition values:
 
-Changes made via Lovable will be committed automatically to this repo.
+Protein
 
-**Use your preferred IDE**
+Carbohydrates
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Fats
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Total Calories
 
-Follow these steps:
+📬 Returns structured JSON response back to Lovable.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+✅ Displays success message + calorie count on the website.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+🛠️ Tech Stack
 
-# Step 3: Install the necessary dependencies.
-npm i
+Lovable – Website frontend for user interaction.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+n8n – Workflow automation platform for orchestration.
 
-**Edit a file directly in GitHub**
+Webhook Node – Handles incoming requests from Lovable.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+AI Agent (n8n) – Powered by OpenAI Chat Model (GPT-4.1-mini) for food analysis.
 
-**Use GitHub Codespaces**
+Structured Output Parser – Formats nutritional insights into JSON.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+OpenAI API – Enables intelligent nutrient estimation.
 
-## What technologies are used for this project?
+⚙️ Workflow Overview
 
-This project is built with:
+Image Upload
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+User uploads a food image on the Lovable site.
 
-## How can I deploy this project?
+Webhook Trigger
 
-Simply open [Lovable](https://lovable.dev/projects/7096eb30-9a4d-4e22-8f18-97a931341147) and click on Share -> Publish.
+The image is sent to the n8n Webhook node.
 
-## Can I connect a custom domain to my Lovable project?
+AI Analysis
 
-Yes, you can!
+The image is processed by the AI Agent using the OpenAI GPT-4.1-mini model.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Nutritional values (protein, carbs, fats, calories) are extracted.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Structured Response
+
+Results are parsed into a clean JSON format by the Structured Output Parser.
+
+Response to Lovable
+
+The webhook sends the nutrition data + calorie count back to Lovable.
+
+Website displays a success message with results.
+
+📂 JSON Response Example
+{
+  "status": "success",
+  "food_item": "Grilled Chicken with Rice",
+  "nutrition": {
+    "protein": "35g",
+    "carbohydrates": "45g",
+    "fats": "12g",
+    "calories": "420 kcal"
+  },
+  "message": "Nutrition analysis completed successfully."
+}
+
+🔧 Installation & Setup
+1. Clone this repository
+git clone https://github.com/your-username/nutrition-analysis.git
+cd nutrition-analysis
+
+2. Setup Lovable
+
+Create a Lovable website for image uploads.
+
+Configure the image upload form to send requests to your n8n webhook.
+
+3. Setup n8n Workflow
+
+Create a new workflow in n8n.
+
+Add nodes in the following order:
+
+Webhook Node (trigger)
+
+AI Agent (OpenAI GPT-4.1-mini model)
+
+Structured Output Parser
+
+Return JSON response to webhook.
+
+4. Configure API Keys
+
+Add your OpenAI API key in n8n credentials.
+
+5. Deploy & Test
+
+Start the workflow.
+
+Upload a food image via the Lovable site.
+
+View results on Lovable UI.
+
+🌟 Future Enhancements
+
+📌 Support for multiple food items in a single image.
+
+📌 Nutrition history tracking & daily summary.
+
+📌 Integration with fitness/health apps.
+
+📌 Personalized diet recommendations using AI.
+
+🤝 Contributing
+
+Contributions are welcome! Please fork the repo and submit a pull request.
+
+📜 License
+
+This project is licensed under the MIT License.
